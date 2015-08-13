@@ -1,0 +1,35 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-batman-belt">
+
+  <template>
+    <p class="title">Cinturón</p>
+    <p>Batarangs lanzados desde el citurón: <span>{{batarangs}}</span></p>
+    <button on-click="useBatarang">Usar batarang desde el cinturón</button>
+  </template>
+  <style>
+    .title {
+      background-color: gold;
+      color: black;
+      border: 2px solid gray;
+      padding: 5px;
+    }
+  </style>
+  <script>
+    Polymer({
+      is: "intro-batman-belt",
+      properties: {
+        batarangs: {
+          type: Number,
+          value: 0
+        }
+      },
+      useBatarang: function () {
+        this.batarangs++;
+      }
+    });
+  </script>
+
+</dom-module>
+

@@ -1,0 +1,33 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-robin">
+
+  <template>
+    <p><span class="title">Robin</span></p>
+  </template>
+
+  <style>
+    .title {
+      background-color: red;
+      color: yellow;
+      border: 2px solid green;
+      padding: 5px;
+    }
+  </style>
+
+  <script>
+    Polymer({
+      is: "intro-robin",
+      listeners: {
+        'SOS': 'handleSOS'
+      },
+      handleSOS: function (e) {
+        console.log('Robin recibe un SOS: ' + e.detail);
+        this.log += '>Robin recibe un SOS: ' + e.detail;
+      }
+    });
+  </script>
+
+</dom-module>
+

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-hero.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Mi primer elemento</h1></header>
+        <div class="doc">
+            <h2>¿Qué necesito?</h2>
+            <h3>Polymer</h3>
+            <p>En el bower.json es necesario incluir Polymer como dependencia:</p>
+            <pre class="prettyprint">
+  "dependencies": {
+    "polymer": "Polymer/polymer#1.0.0"
+  }
+            </pre>
+            <h2>Creando un elemento</h2>
+            <p>Nuestro componente necesita importar <code>polymer.html</code>.</p>
+            <p>El componente se crea dentro de la etiqueta <code>dom-module</code>.</p>
+            <p>La etiqueta <code>template</code> contiene el HTML del componente.</p>
+            <p>El nombre de los componentes siempre necesita al menos un guión medio <code>-</code>.</p>
+            <p>Crearemos un tag <code>script</code> para ejecutar Polymer y crear un componente.</p>
+            <h3>intro-hero.html</h3>
+            <pre  class="prettyprint">
+  &lt;link rel="import"
+      href="../../bower_components/polymer/polymer.html"&gt;
+
+  &lt;dom-module id="intro-hero"&gt;
+
+    &lt;template&gt;
+      &lt;span&gt;Superman&lt;/span&gt;
+    &lt;/template&gt;
+
+    &lt;style&gt;
+      span {
+        background-color: yellow;
+        color: red;
+        border: 2px solid blue;
+        padding: 5px;
+      }
+    &lt;/style&gt;
+
+    &lt;script&gt;
+      Polymer({
+        is: "intro-hero"
+      });
+    &lt;/script&gt;
+
+  &lt;/dom-module&gt;
+            </pre>
+            <h2>Usando mi elemento</h2>
+            <p>Para usar el componente en un HTML es necesario importarlo.</p>
+            <h3>index.html</h3>
+            <pre class="prettyprint">
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;meta charset="UTF-8"&gt;
+      &lt;title&gt;Intro&lt;/title&gt;
+      &lt;script
+        src="../../bower_components/webcomponentsjs/webcomponents-lite.js"&gt;&lt;/script&gt;
+      &lt;link rel="import" href="./intro-hero.html"&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+      &lt;intro-hero&gt;&lt;/intro-hero&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+            </pre>
+            <h2>Resultado</h2>
+            <intro-hero></intro-hero>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

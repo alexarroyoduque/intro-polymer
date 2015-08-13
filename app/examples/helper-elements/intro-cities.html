@@ -1,0 +1,41 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-cities">
+  <template>
+    <p><b>Ciudades:</b></p>
+    <template is="dom-repeat" id="citiesList" items="{{cities}}">
+        <div>Nombre: <span>{{item.name}}</span></div>
+        <button on-click="toggleSelection">Seleccionar</button>
+    </template>
+
+    <array-selector id="selector" items="{{cities}}" selected="{{selected}}" multi toggle></array-selector>
+
+    <p><b>Ciudades seleccionadas:</b></p>
+    <template is="dom-repeat" items="{{selected}}">
+        <div>Nombre: <span>{{item.name}}</span></div>
+    </template>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: "intro-cities",
+      properties: {
+        cities: {
+          type: Array,
+          value: function() {
+            return [{name: 'Gotham'},
+            {name: 'Metropolis'},
+            {name: 'Starling City'},
+            {name: 'Central City'}];
+          }
+        }
+      },
+      toggleSelection: function(e) {
+        var item = this.$.citiesList.itemForElement(e.target);
+        this.$.selector.select(item);
+      }
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-ajax.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Catálogo: iron-ajax</h1></header>
+        <div class="doc">
+          <p>Polymer proporciona una colección de elementos en su <a href="https://elements.polymer-project.org/">catálogo</a>.</p>
+          <h2>iron-ajax</h2>
+          <p>Para usar el  <a href="https://elements.polymer-project.org/elements/paper-button">iron-ajax</a> del catálogo de elementos Polymer es necesario instalar las dependencias necesarias e importarlas al proyecto.</p>
+          <code>bower install --save PolymerElements/iron-ajax</code>
+          <h3>Ejemplo</h3>
+          <intro-ajax></intro-ajax>
+          <h4>intro-ajax.html</h4>
+          <pre class="prettyprint">
+&lt;link rel="import"
+    href="../../bower_components/polymer/polymer.html"&gt;
+&lt;link rel="import"
+    href="../../bower_components/iron-ajax/iron-ajax.html"&gt;
+
+&lt;dom-module id="intro-ajax"&gt;
+
+  &lt;template&gt;
+    &lt;iron-ajax
+      auto
+      handle-as="json"
+      url="heroes.json"
+      on-response="handleResponse"
+      &gt;&lt;/iron-ajax&gt;
+    &lt;p&gt;{{heroes.0.name}}&lt;/p&gt;
+
+  &lt;/template&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-ajax",
+      handleResponse: function (event, detail) {
+        this.heroes = detail.response;
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+          <h4>heroes.json</h4>
+          <pre class="prettyprint">
+[
+  {"name": "Superman"},
+  {"name": "Batman"},
+  {"name": "Flash"}
+]
+          </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

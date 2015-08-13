@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+    <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Catálogo: botón</h1></header>
+        <div class="doc">
+          <p>Polymer proporciona una colección de elementos en su <a href="https://elements.polymer-project.org/">catálogo</a>.</p>
+          <h2>Botón</h2>
+          <p>Para usar el  <a href="https://elements.polymer-project.org/elements/paper-button">botón</a> del catálogo de elementos Polymer es necesario instalar las dependencias necesarias e importarlas al proyecto.</p>
+          <code>bower install --save PolymerElements/paper-button</code>
+          <h3>index.html</h3>
+          <div>
+            <paper-button>flat button</paper-button>
+            <paper-button raised>raised button</paper-button>
+            <paper-button noink>No ripple effect</paper-button>
+            <paper-button toggles>toggle-able button</paper-button>
+          </div>
+
+          <pre class="prettyprint">
+&lt;html&gt;
+  &lt;head&gt;
+  &lt;script
+    src="../../bower_components/webcomponentsjs/webcomponents-lite.js"&gt;&lt;/script&gt;
+  &lt;link
+    rel="import" href="../../bower_components/paper-button/paper-button.html"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div&gt;
+      &lt;paper-button&gt;flat button&lt;/paper-button&gt;
+      &lt;paper-button raised&gt;raised button&lt;/paper-button&gt;
+      &lt;paper-button noink&gt;No ripple effect&lt;/paper-button&gt;
+      &lt;paper-button toggles&gt;toggle-able button&lt;/paper-button&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+          </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

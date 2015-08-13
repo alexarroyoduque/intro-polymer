@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-hero.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Creando variables</h1></header>
+        <div class="doc">
+          <p>Las variables de un componente siempre han de estar dentro de una etiqueta HTML.</p>
+          <h2>Tipos</h2>
+          <ul>
+            <li>String</li>
+            <li>Date</li>
+            <li>Number</li>
+            <li>Boolean</li>
+            <li>Array</li>
+            <li>Object</li>
+          </ul>
+          <h2>intro-hero.html</h2>
+          <intro-hero></intro-hero>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-hero"&gt;
+  &lt;template&gt;
+    &lt;p&gt;El hombre del mañana:
+      &lt;b&gt;{{name}}&lt;/b&gt; &lt;b&gt;{{lastname}}&lt;/b&gt;
+    &lt;/p&gt;
+    &lt;p&gt;Vueltas al mundo: &lt;span&gt;{{laps}}&lt;/span&gt;&lt;/p&gt;
+    &lt;button on-click="turnTheWorld"&gt;Dar vuelta al mundo&lt;/button&gt;
+  &lt;/template&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-hero",
+      properties: {
+        name: {
+          type: String,
+          value: 'Clark'
+        },
+        lastname: {
+          type: String,
+          value: 'Kent'
+        },
+        laps: {
+          type: Number,
+          value: 0
+        }
+      },
+      turnTheWorld: function () {
+        this.laps++;
+      }
+    });
+  &lt;/script&gt;
+&lt;/dom-module&gt;
+
+          </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

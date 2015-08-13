@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-batman.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Notificar cambios en Array</h1></header>
+        <div class="doc">
+          <p>Polymer no observa estructuras de datos complejas igual que otros tipos simples como strings, numbers, etc, ...</p>
+          <p><a href="https://www.polymer-project.org/1.0/docs/devguide/properties.html#array-observation">Polymer proporciona sus propios métodos para modificar Arrays:</a></p>
+          <ul>
+            <li>push(path, item1, [..., itemN])</li>
+            <li>pop(path)</li>
+            <li>unshift(path, item1, [..., itemN])</li>
+            <li>shift(path)</li>
+            <li>splice(path, index, removeCount, [item1, ..., itemN])</li>
+          </ul>
+          <h2>intro-batman.html</h2>
+          <intro-batman></intro-batman>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-batman"&gt;
+  &lt;template&gt;
+    &lt;p&gt;Batman&lt;/p&gt;
+    &lt;p&gt;Batarangs disponibles: &lt;span&gt;{{batarangs.length}}&lt;/span&gt;&lt;/p&gt;
+    &lt;button on-click="buyBatarang"&gt;Comprar batarang&lt;/button&gt;
+    &lt;p&gt;Estado del primer Batarang: &lt;span&gt;{{batarangs.0.status}}&lt;/span&gt;&lt;/p&gt;
+    &lt;button on-click="useFirstBatarang"&gt;Lanzar el primer batarang&lt;/button&gt;
+  &lt;/template&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-batman",
+      properties: {
+        batarangs: {
+          type: Array,
+          value: function() {
+            return [{status: 'ok'}];
+          }
+        }
+      },
+      buyBatarang: function () {
+        this.push('batarangs', {status: 'ok'});
+      },
+      useFirstBatarang: function () {
+        this.notifyPath('batarangs.' + 0 + '.status', 'broken');
+      }
+    });
+  &lt;/script&gt;
+&lt;/dom-module&gt;
+        </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

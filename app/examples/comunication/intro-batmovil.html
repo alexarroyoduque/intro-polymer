@@ -1,0 +1,39 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="./intro-batman.html">
+
+<dom-module id="intro-batmovil">
+
+  <template>
+    <p><span class="title">Batmovil</span></p>
+    <p>Misiles disparados: <span>{{shoots}}</span></p>
+  </template>
+
+  <style>
+    .title {
+      background-color: black;
+      color: white;
+      border: 2px solid gray;
+      padding: 5px;
+      border-radius: 50%;
+    }
+  </style>
+
+  <script>
+    Polymer({
+      is: "intro-batmovil",
+      properties: {
+        shoots: {
+          type: Number,
+          value: 0
+        }
+      },
+      shoot: function () {
+          this.shoots++;
+      }
+    });
+  </script>
+
+</dom-module>
+

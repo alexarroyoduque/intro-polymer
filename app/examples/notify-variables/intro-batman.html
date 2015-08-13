@@ -1,0 +1,37 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+<link rel="import"
+    href="intro-batman-belt.html">
+<dom-module id="intro-batman">
+
+  <template>
+    <p class="title">Batman</p>
+    <p>Batarangs lanzados por Batman: <span>{{batarangs}}</span></p>
+    <button on-click="useBatarang">Usar batarang</button>
+    <intro-batman-belt batarangs="{{batarangs}}"></intro-batman-belt>
+  </template>
+  <style>
+    .title {
+      background-color: black;
+      color: white;
+      border: 2px solid gray;
+      padding: 5px;
+    }
+  </style>
+  <script>
+    Polymer({
+      is: "intro-batman",
+      properties: {
+        batarangs: {
+          type: Number,
+          value: 0
+        }
+      },
+      useBatarang: function () {
+        this.batarangs++;
+      }
+    });
+  </script>
+
+</dom-module>
+

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-hero.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Observar cambios en variable</h1></header>
+        <div class="doc">
+          <p>Podemos crear un observador para una propiedad de un componente y ejecutar una función cuando cambie.</p>
+          <pre class="prettyprint">
+  myVar: {
+    type: Number,
+    value: 0,
+    observer: 'change'
+  },
+          </pre>
+          <p>La función a ejectuar cuando el valor cambia recibe el nuevo valor y el viejo: <code>change: function(newValue, oldValue) {/*...*/}</code></p>
+          <h2>intro-hero.html</h2>
+          <intro-hero></intro-hero>
+        <pre class="prettyprint">
+&lt;dom-module id="intro-hero"&gt;
+
+  &lt;template&gt;
+    &lt;p class$="{{flyEffect}}"&gt;El hombre del mañana: &lt;b&gt;Clark Kent&lt;/b&gt;&lt;/p&gt;
+    &lt;p&gt;Vueltas al mundo: &lt;span&gt;{{laps}}&lt;/span&gt;&lt;/p&gt;
+    &lt;button on-click="turnTheWorld"&gt;Dar vuelta al mundo&lt;/button&gt;
+  &lt;/template&gt;
+
+  &lt;style&gt;
+    .fly {
+      animation-name: fly-animation;
+      animation-timing-function: ease;
+      animation-duration: .5s;
+    }
+
+    @keyframes fly-animation {
+      0% {transform: rotate(0);}
+      100% {transform: rotate(1turn);}
+    }
+
+  &lt;/style&gt;
+  &lt;script&gt;
+    Polymer({
+      is: "intro-hero",
+      properties: {
+        laps: {
+          type: Number,
+          value: 0,
+          observer: 'fly'
+        },
+        flyEffect: String
+      },
+      turnTheWorld: function () {
+        this.laps++;
+      },
+      fly: function () {
+        this.flyEffect = '';
+        this.flyEffect = 'fly';
+        this.async((function () {
+            this.flyEffect = '';
+        }).bind(this), 500);
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+        </pre>
+
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

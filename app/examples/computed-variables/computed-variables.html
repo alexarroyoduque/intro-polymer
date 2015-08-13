@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-hero.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Variables computadas</h1></header>
+        <div class="doc">
+          <h2>Propiedades computadas</h2>
+          <p>Podemos crear funciones que interpretan el valor de sus argumentos y devuelven un resultado.</p>
+          <code>computed: 'computeFullName(name, lastname)'</code>
+          <h2>Atributos dinámicos</h2>
+          <p>Es posible usar variables en atributos para que dependiendo de su valor reciban un valor u otro.</p>
+          <p>Es importante considerar que en atributos nativos de HTML es necesario agrega un <code>$</code> antes del <code>=</code></p>
+          <code>class$="{{suit}}"</code>
+          <h2>intro-hero.html</h2>
+          <intro-hero></intro-hero>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-hero"&gt;
+  &lt;template&gt;
+    &lt;p class$="{{suit}}"&gt;El hombre del mañana:&nbsp;
+      &lt;b&gt;{{hero}}&lt;/b&gt;
+    &lt;/p&gt;
+    &lt;button on-click="changeClothes"&gt;Cambiarse de ropa&lt;/button&gt;
+  &lt;/template&gt;
+  &lt;style&gt;
+    .superman {
+      background-color: yellow;
+      color: red;
+      border: 2px solid blue;
+      padding: 5px;
+    }
+  &lt;/style&gt;
+  &lt;script&gt;
+    Polymer({
+      is: "intro-hero",
+      properties: {
+        hero: {
+          type: String,
+          computed: 'computeFullName(name, lastname)'
+        },
+        name: {
+          type: String,
+          value: 'Clark'
+        },
+        lastname: {
+          type: String,
+          value: 'Kent'
+        },
+        suit: {
+          type: String
+        }
+      },
+      computeFullName: function(name, lastname) {
+        return name + ' ' + lastname;
+      },
+      changeToSuperMan: function () {
+        this.name = 'Super Man';
+        this.lastname = '';
+        this.suit = 'superman';
+      },
+      changeToClark: function () {
+        this.name = 'Clark';
+        this.lastname = 'Kent';
+        this.suit = '';
+      },
+      changeClothes: function () {
+        if (this.suit === 'superman') {
+          this.changeToClark();
+        } else {
+          this.changeToSuperMan();
+        }
+      }
+    });
+  &lt;/script&gt;
+&lt;/dom-module&gt;
+          </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

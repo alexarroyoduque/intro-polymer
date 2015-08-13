@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-cities.html">
+    <link rel="import" href="./intro-characters.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Helper elements</h1></header>
+        <div class="doc">
+          <p><a href="https://www.polymer-project.org/1.0/docs/devguide/templates.html">Polymer proporciona elementos que nos ayudan a hacer tareas comunes en una web:</a></p>
+          <dl>
+            <dt>dom-repeat</dt>
+            <dd>Permite crear instancias de una colección donde quedan expuestas propiedades como el item y el índice.</dd>
+            <dt>array-selector</dt>
+            <dd>Permite seleccionar/deseleccionar elementos de una colección. Los elementos seleccionados pasan a otra colección. Este elemento no es visual.</dd>
+            <dt>dom-if (templates condicionales)</dt>
+            <dd>Permite renderizar un contenido dada una condición.</dd>
+            <dt>dom-bind(auto-binding templates)</dt>
+            <dd>Auto renderiza una plantilla sin necesidad de llamar a un elemento.</dd>
+            <dt>dom-change envent</dt>
+            <dd>Cuando un elemento actualiza el arbol de nodos se lanza este evento.</dd>
+          </dl>
+          <h2>Repetir elementos en una tabla con condicionales</h2>
+          <intro-characters></intro-characters>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-characters"&gt;
+  &lt;template&gt;
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Índice&lt;/span&gt;&lt;/th&gt;
+          &lt;th&gt;Nombre&lt;/th&gt;
+          &lt;th&gt;Tipo&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+      &lt;template is="dom-repeat" items="{{characters}}"&gt;
+        &lt;tr&gt;
+          &lt;td&gt;# &lt;span&gt;{{index}}&lt;/span&gt;&lt;/td&gt;
+          &lt;td&gt;{{item.name}}&lt;/td&gt;
+          &lt;td&gt;
+            &lt;template is="dom-if" if="{{item.isEnemy}}"&gt;
+                &lt;span&gt;Enemigo&lt;/span&gt;
+            &lt;/template&gt;
+            &lt;template is="dom-if" if="{{!item.isEnemy}}"&gt;
+                &lt;span&gt;Heroe&lt;/span&gt;
+            &lt;/template&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/template&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/template&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-characters",
+      properties: {
+        characters: {
+          type: Array,
+          value: function() {
+            return [{name: 'Batman', isEnemy: false},
+            {name: 'Jocker', isEnemy: true},
+            {name: 'Superman', isEnemy: false},
+            {name: 'Green arrow', isEnemy: false},
+            {name: 'Deathstroke', isEnemy: true},
+            {name: 'Zod', isEnemy: true},
+            {name: 'Green Lantern', isEnemy: false},
+            {name: 'Siniestro', isEnemy: true}];
+          }
+        }
+      }
+    });
+  &lt;/script&gt;
+&lt;/dom-module&gt;
+          </pre>
+          <h2>Ejemplo de array-selector</h2>
+          <intro-cities></intro-cities>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-cities"&gt;
+  &lt;template&gt;
+    &lt;p&gt;&lt;b&gt;Ciudades:&lt;/b&gt;&lt;/p&gt;
+    &lt;template is="dom-repeat" id="citiesList" items="{{cities}}"&gt;
+        &lt;div&gt;Nombre: &lt;span&gt;{{item.name}}&lt;/span&gt;&lt;/div&gt;
+        &lt;button on-click="toggleSelection"&gt;Seleccionar&lt;/button&gt;
+    &lt;/template&gt;
+
+    &lt;array-selector id="selector" items="{{cities}}" selected="{{selected}}" multi toggle&gt;&lt;/array-selector&gt;
+
+    &lt;p&gt;&lt;b&gt;Ciudades seleccionadas:&lt;/b&gt;&lt;/p&gt;
+    &lt;template is="dom-repeat" items="{{selected}}"&gt;
+        &lt;div&gt;Nombre: &lt;span&gt;{{item.name}}&lt;/span&gt;&lt;/div&gt;
+    &lt;/template&gt;
+
+  &lt;/template&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-cities",
+      properties: {
+        cities: {
+          type: Array,
+          value: function() {
+            return [{name: 'Gotham'},
+            {name: 'Metropolis'},
+            {name: 'Starling City'},
+            {name: 'Central City'}];
+          }
+        }
+      },
+      toggleSelection: function(e) {
+        var item = this.$.citiesList.itemForElement(e.target);
+        this.$.selector.select(item);
+      }
+    });
+  &lt;/script&gt;
+&lt;/dom-module&gt;
+          </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

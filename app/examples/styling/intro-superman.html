@@ -1,0 +1,71 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-superman">
+  <template>
+    <p>
+      <span class="title">Superman</span>
+    </p>
+    <div class="superman">
+      <p>
+        <span class="suit">Traje</span>
+        <span class="cape">Capa</span>
+      </p>
+    </div>
+
+    <button on-click="changeToNormal">Cambiar a normal</button>
+    <button on-click="changeToDark">Cambiar a oscuro</button>
+  </template>
+
+  <style>
+    :host {
+      --suit-color: blue;
+      --cape-color: red;
+    }
+
+    .superman {
+      color: white;
+    }
+
+    .superman span {
+      width: 100px;
+      height: 100px;
+      display: inline-block;
+      padding: 5px;
+    }
+
+    .suit {
+      background-color: var(--suit-color);
+    }
+
+    .cape {
+      background-color: var(--cape-color);
+    }
+
+    .title {
+      background-color: yellow;
+      color: red;
+      border: 2px solid blue;
+      padding: 5px;
+    }
+  </style>
+
+  <script>
+    Polymer({
+      is: "intro-superman",
+      changeColors: function (suit, cape) {
+        this.customStyle['--suit-color'] = suit;
+        this.customStyle['--cape-color'] = cape;
+        Polymer.updateStyles();
+      },
+      changeToDark: function () {
+        this.changeColors('black', 'gray');
+      },
+      changeToNormal: function () {
+        this.changeColors('blue', 'red');
+      }
+    });
+  </script>
+
+</dom-module>
+

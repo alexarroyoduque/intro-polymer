@@ -1,0 +1,17 @@
+<script>
+HeroBehavior = {
+    properties: {
+        favouriteColor: String,
+        times: {
+            type: Number,
+            value: 0
+        }
+    },
+    saveTheWorld: function () {
+        this.times++;
+    },
+    chooseFavouriteColor: function () {
+        this.favouriteColor = 'green';
+    }
+};
+</script>

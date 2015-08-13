@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-krypton.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Ciclo de vida</h1></header>
+        <div class="doc">
+          <p>El componente <code>intro-krypton</code> pasa por las siguientes fases:</p>
+          <dl>
+            <dt>1. created</dt>
+            <dd>El componente es creado.</dd>
+            <dt>2. ready</dt>
+            <dd>El componente está listo para ser usado. Polymer ha terminado de crear e inicializar el DOM local del componente.</dd>
+            <dt>3. attached</dt>
+            <dd>El componente ha sido agregado al DOM de la página. Dentro de esta fase es posible acceder de forma asíncrona a elementos padre o hermanos del componente.</dd>
+
+          </dl>
+          <h2>intro-krypton.html</h2>
+          <pre class="prettyprint">
+  &lt;link rel="import"
+      href="../../bower_components/polymer/polymer.html"&gt;
+
+  &lt;dom-module id="intro-krypton"&gt;
+    &lt;template&gt;
+      &lt;div&gt;&lt;span&gt;Krypton&lt;/span&gt;&lt;/div&gt;
+    &lt;/template&gt;
+
+    &lt;style&gt;
+      div {
+        position: relative;
+        color: white;
+        background-color: #4CAF50;
+        padding: 5px;
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+      }
+
+      span {
+        position: absolute;
+        top: 42%;
+        right: 31%;
+        font-size: 24px;
+      }
+    &lt;/style&gt;
+
+    &lt;script&gt;
+      Polymer({
+        is: "intro-krypton",
+        created: function () {
+          console.log('created');
+        },
+        ready: function () {
+          console.log('ready');
+        },
+        attached: function () {
+          console.log('attached');
+        },
+        detached: function () {
+          console.log('detached');
+        }
+      });
+    &lt;/script&gt;
+  &lt;/dom-module&gt;
+  </pre>
+        <intro-krypton></intro-krypton>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

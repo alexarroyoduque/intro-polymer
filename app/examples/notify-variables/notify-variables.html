@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-green-arrow.html">
+    <link rel="import" href="./intro-batman.html">
+    <link rel="import" href="./intro-superman.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Notificar cambios en variable</h1></header>
+        <div class="doc">
+          <h2>Notificación en una dirección</h2>
+          <p>Comportamiento por defecto de Polymer. Los cambios de una variable en un componente dentro de otro no se propagan del hijo al padre. Sin embargo del padre al hijo sí se propagan.</p>
+          <h3>Ejemplo</h3>
+          <intro-batman></intro-batman>
+          <h4>intro-batman.html</h4>
+          <pre class="prettyprint">
+&lt;link rel="import"
+    href="../../bower_components/polymer/polymer.html"&gt;
+&lt;link rel="import"
+    href="intro-batman-belt.html"&gt;
+&lt;dom-module id="intro-batman"&gt;
+
+  &lt;template&gt;
+    &lt;p class="title"&gt;Batman&lt;/p&gt;
+    &lt;p&gt;Batarangs lanzados por Batman: &lt;span&gt;{{batarangs}}&lt;/span&gt;&lt;/p&gt;
+    &lt;button on-click="useBatarang"&gt;Usar batarang&lt;/button&gt;
+    &lt;intro-batman-belt batarangs="{{batarangs}}"&gt;&lt;/intro-batman-belt&gt;
+  &lt;/template&gt;
+  &lt;style&gt;
+    .title {
+      background-color: black;
+      color: white;
+      border: 2px solid gray;
+      padding: 5px;
+    }
+  &lt;/style&gt;
+  &lt;script&gt;
+    Polymer({
+      is: "intro-batman",
+      properties: {
+        batarangs: {
+          type: Number,
+          value: 0
+        }
+      },
+      useBatarang: function () {
+        this.batarangs++;
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+          <h4>intro-batman-belt.html</h4>
+          <pre class="prettyprint">
+&lt;link rel="import"
+    href="../../bower_components/polymer/polymer.html"&gt;
+
+&lt;dom-module id="intro-batman-belt"&gt;
+
+  &lt;template&gt;
+    &lt;p class="title"&gt;Cinturón&lt;/p&gt;
+    &lt;p&gt;Batarangs lanzados por el citurón: &lt;span&gt;{{batarangs}}&lt;/span&gt;&lt;/p&gt;
+    &lt;button on-click="useBatarang"&gt;Usar batarang&lt;/button&gt;
+  &lt;/template&gt;
+  &lt;style&gt;
+    .title {
+      background-color: gold;
+      color: black;
+      border: 2px solid gray;
+      padding: 5px;
+    }
+  &lt;/style&gt;
+  &lt;script&gt;
+    Polymer({
+      is: "intro-batman-belt",
+      properties: {
+        batarangs: {
+          type: Number,
+          value: 0
+        }
+      },
+      useBatarang: function () {
+        this.batarangs++;
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+          <h2>Doble binding</h2>
+          <p>Los cambios en un componente hijo se propagan al padre.</p>
+          <p><code>notify: true</code></p>
+          <h3>Ejemplo</h3>
+          <intro-green-arrow></intro-green-arrow>
+          <h4>intro-green-arrow.html</h4>
+          <pre class="prettyprint">
+&lt;link rel="import"
+    href="../../bower_components/polymer/polymer.html"&gt;
+&lt;link rel="import"
+    href="intro-bow.html"&gt;
+&lt;dom-module id="intro-green-arrow"&gt;
+
+  &lt;template&gt;
+    &lt;p class="title"&gt;Flecha verde&lt;/p&gt;
+    &lt;p&gt;Flechas disparadas por el heroe: &lt;span&gt;{{arrows}}&lt;/span&gt;&lt;/p&gt;
+    &lt;button on-click="shoot"&gt;Disparar flecha&lt;/button&gt;
+    &lt;intro-bow arrows="{{arrows}}"&gt;&lt;/intro-bow&gt;
+  &lt;/template&gt;
+  &lt;style&gt;
+    .title {
+      background-color: green;
+      color: white;
+      border: 2px solid black;
+      padding: 5px;
+    }
+  &lt;/style&gt;
+  &lt;script&gt;
+    Polymer({
+      is: "intro-green-arrow",
+      properties: {
+        arrows: {
+          type: Number,
+          value: 0
+        }
+      },
+      shoot: function () {
+        this.arrows++;
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+          <h4>intro-bow.html</h4>
+          <pre class="prettyprint">
+&lt;link rel="import"
+    href="../../bower_components/polymer/polymer.html"&gt;
+
+&lt;dom-module id="intro-bow"&gt;
+
+  &lt;template&gt;
+    &lt;p class="title"&gt;Arco&lt;/p&gt;
+    &lt;p&gt;Flechas disparadas desde por arco: &lt;span&gt;{{arrows}}&lt;/span&gt;&lt;/p&gt;
+    &lt;button on-click="shoot"&gt;Disparar desde el arco&lt;/button&gt;
+  &lt;/template&gt;
+  &lt;style&gt;
+    .title {
+      color: black;
+      border: 2px solid green;
+      padding: 5px;
+    }
+  &lt;/style&gt;
+  &lt;script&gt;
+    Polymer({
+      is: "intro-bow",
+      properties: {
+        arrows: {
+          type: Number,
+          value: 0,
+          notify: true
+        }
+      },
+      shoot: function () {
+        this.arrows++;
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+          <h2>Solo lectura</h2>
+          <p><code>readOnly:true</code></p>
+          <h3>intro-superman.html</h3>
+          <intro-superman></intro-superman>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-superman"&gt;
+
+  &lt;template&gt;
+    &lt;p&gt;Super Man&lt;/p&gt;
+    &lt;p&gt;Vueltas al mundo: &lt;span&gt;{{laps}}&lt;/span&gt;&lt;/p&gt;
+    &lt;button on-click="turnTheWorld"&gt;Dar vuelta al mundo&lt;/button&gt;
+  &lt;/template&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-superman",
+      properties: {
+        laps: {
+          type: Number,
+          value: 0,
+          readOnly:true
+        }
+      },
+      turnTheWorld: function () {
+        this.laps++;
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

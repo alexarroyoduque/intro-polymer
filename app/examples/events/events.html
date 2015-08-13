@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-batmovil.html">
+    <link rel="import" href="./intro-robin.html">
+    <link rel="import" href="./intro-superman.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Eventos</h1></header>
+        <div class="doc">
+          <h2>Escucha de eventos</h2>
+          <p>En la configuración del componente permite definir una <a href="https://www.polymer-project.org/1.0/docs/devguide/events.html">API para escuchar de eventos</a>. De este modo cuando el componente reciba un evento ejecutará una función interna.</p>
+          <pre class="prettyprint">
+    is: 'x-custom',
+    listeners: {
+      'click': 'myFunction'
+    },
+          </pre>
+          <h2>Eventos personalizados</h2>
+          <p>HTML proporciona unos eventos por defecto como el "click". <a href="https://www.polymer-project.org/1.0/docs/devguide/utility-functions.html">Polymer tiene su propio sistema para lanzar eventos personalizados</a>.</p>
+          <p><code>this.fire('SOS', 'From Batman');</code></p>
+          <p>Del mismo modo se puede crear un listener en la configuración de un componente para escuchar el evento</p>
+          <pre class="prettyprint">
+    is: 'x-custom',
+    listeners: {
+      'SOS': 'handleSOS'
+    },
+          </pre>
+          <p>Por defecto los eventos se propagan en <a href="http://www.w3schools.com/jsref/event_bubbles.asp">modo "burbuja"</a>, de hijos a padres pero no entre componentes hermanos o de padres a hijos. Un componente también es capaz de escuchar su propio evento.</p>
+          <h3>Ejemplo</h3>
+          <p>En este ejemplo hay tres componentes. Batman está dentro del Batmóvil y Robin es hermano del Batmóvil.</p>
+          <p>Si Batman envía un SOS es escuchado por él mismo y el Batmóvil.</p>
+          <p>Si el Batmóvil envía un SOS solo lo escucha él mismo.</p>
+          <p>Robin no escucha ni al Batmóvil ni a Batman.</p>
+          <intro-batmovil></intro-batmovil>
+          <intro-robin></intro-robin>
+          <h4>intro-batmovil.html</h4>
+          <pre class="prettyprint">
+&lt;link rel="import" href="./intro-batman.html"&gt;
+
+&lt;dom-module id="intro-batmovil"&gt;
+
+  &lt;template&gt;
+    &lt;p&gt;&lt;span class="title"&gt;Batmovil&lt;/span&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;button on-click="sendSOS"&gt;Enviar SOS desde Batmovil&lt;/button&gt;&lt;/p&gt;
+    &lt;p&gt;{{log}}&lt;/p&gt;
+    &lt;intro-batman&gt;&lt;/intro-batman&gt;
+  &lt;/template&gt;
+
+  &lt;style&gt;
+    .title {
+      background-color: black;
+      color: white;
+      border: 2px solid gray;
+      padding: 5px;
+      border-radius: 50%;
+    }
+  &lt;/style&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-batmovil",
+      properties: {
+        log: {
+          type: String,
+          value: ''
+        }
+      },
+      listeners: {
+        'SOS': 'handleSOS'
+      },
+      sendSOS: function () {
+        console.log('Batmovil envia un SOS');
+        this.log += '&gt;Batmovil envia un SOS';
+        this.fire('SOS', 'From Batmovil');
+      },
+      handleSOS: function (e) {
+        console.log('Batmovil recibe un SOS: ' + e.detail);
+        this.log += '&gt;Batmovil recibe un SOS: ' + e.detail;
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+          <h4>intro-batman.html</h4>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-batman"&gt;
+
+  &lt;template&gt;
+    &lt;p&gt;&lt;span class="title"&gt;Batman&lt;/span&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;button on-click="sendSOS"&gt;Enviar SOS desde Batman&lt;/button&gt;&lt;/p&gt;
+    &lt;p&gt;{{log}}&lt;/p&gt;
+  &lt;/template&gt;
+
+  &lt;style&gt;
+    .title {
+      background-color: black;
+      color: white;
+      border: 2px solid gray;
+      padding: 5px;
+    }
+  &lt;/style&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-batman",
+      properties: {
+        log: {
+          type: String,
+          value: ''
+        }
+      },
+      listeners: {
+        'SOS': 'handleSOS'
+      },
+      sendSOS: function () {
+        console.log('Batman envia un SOS');
+        this.log += '&gt;Batman envia un SOS';
+        this.fire('SOS', 'From Batman');
+      },
+      handleSOS: function (e) {
+        console.log('Batman recibe un SOS: ' + e.detail);
+        this.log += '&gt;Batman recibe un SOS: ' + e.detail;
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+          <h4>intro-robin.html</h4>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-robin"&gt;
+  &lt;template&gt;
+    &lt;p&gt;&lt;span class="title"&gt;Robin&lt;/span&gt;&lt;/p&gt;
+  &lt;/template&gt;
+
+  &lt;style&gt;
+    .title {
+      background-color: red;
+      color: yellow;
+      border: 2px solid green;
+      padding: 5px;
+    }
+  &lt;/style&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-robin",
+      listeners: {
+        'SOS': 'handleSOS'
+      },
+      handleSOS: function (e) {
+        console.log('Robin recibe un SOS: ' + e.detail);
+        this.log += '&gt;Robin recibe un SOS: ' + e.detail;
+      }
+    });
+  &lt;/script&gt;
+&lt;/dom-module&gt;
+          </pre>
+          <h2>Eventos con cambios de variable</h2>
+          <p>Si se aplica a una propiedad <code>notify: true</code> se disparará el evento <code>propiedad-changed</code>.</p>
+          <p>Al aplicar el <code>notify: true</code> los padres del componente se enterarían del cambio de una variable como se vio en un ejemplo anterior pero también se agrega un observador dicha variable. Esto provoca en al cargar el componente se dispare también el evento asociado.</p>
+          <h3>intro-superman.html</h3>
+          <intro-superman></intro-superman>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-superman"&gt;
+  &lt;template&gt;
+    &lt;p&gt;&lt;span class="title"&gt;Superman&lt;/span&gt;&lt;/p&gt;
+    &lt;p&gt;Vueltas al mundo: &lt;span&gt;{{laps}}&lt;/span&gt;&lt;/p&gt;
+    &lt;button on-click="turnTheWorld"&gt;Dar vuelta al mundo&lt;/button&gt;
+    &lt;p&gt;{{log}}&lt;/p&gt;
+  &lt;/template&gt;
+
+  &lt;style&gt;
+    .title {
+      background-color: yellow;
+      color: red;
+      border: 2px solid blue;
+      padding: 5px;
+    }
+  &lt;/style&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-superman",
+      properties: {
+        laps: {
+          type: Number,
+          value: 0,
+          notify: true
+        },
+        log: {
+          type: String,
+          value: ''
+        }
+      },
+      listeners: {
+        'laps-changed': 'handleEvent'
+      },
+      turnTheWorld: function () {
+        this.laps++;
+      },
+      handleEvent: function () {
+        console.log('Superman ha dado una vuelta al mundo');
+        this.log += '&gt;Superman ha dado una vuelta al mundo';
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-batman.html">
+    <link rel="import" href="./intro-superman.html">
+    <link rel="import" href="./intro-green-arrow.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Dar estilos</h1></header>
+        <div class="doc">
+          <p>Cada componente contiene sus propios estilos de forma encapsulada y no entra en conflicto con otros componentes.</p>
+          <h2>Selectores especiales</h2>
+          <dl>
+            <dt>:host</dt>
+            <dd>Este selector permite asignar estilos al nodo/etiqueta del componente.</dd>
+            <dt>::content</dt>
+            <dd>Este selector permite asignar estilos a un template interno del template del componente.</dd>
+            <dt>/deep/</dt>
+            <dd>Este selector permite acceder al componente desde fuera del propio componente.</dd>
+          </dl>
+
+          <h3>intro-batman.html</h3>
+          <intro-batman></intro-batman>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-batman"&gt;
+  &lt;template&gt;
+    &lt;p class="title"&gt;La indentidad secreta de Batman es:&nbsp;
+      &lt;template is="dom-bind"&gt;
+        &lt;span class="secret"&gt;Bruce Wayne&lt;/span&gt;
+      &lt;/template&gt;
+    &lt;/p&gt;
+  &lt;/template&gt;
+
+  &lt;style&gt;
+    :host {
+      color: white;
+    }
+
+    .title {
+      background-color: black;
+      font-size: 20px;
+      padding: 5px;
+    }
+
+    :host::content .secret {
+      color: yellow;
+    }
+
+  &lt;/style&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-batman"
+    });
+  &lt;/script&gt;
+&lt;/dom-module&gt;
+          </pre>
+          <h2>Variables</h2>
+          <p>Dentro de los estilos como Polymer element se pueden crear variables como SASS/LESS que son preprocesadores de estilos.</p>
+          <pre class="prettyprint">
+  :host {
+    --suit-color: blue;
+    --cape-color: red;
+  }
+          </pre>
+          <p>Además Polymer permite modificar dinámicamente el valor de estas variables.</p>
+          <pre class="prettyprint">
+  this.customStyle['--suit-color'] = suit;
+  this.customStyle['--cape-color'] = cape;
+  Polymer.updateStyles();
+          </pre>
+          <h3>intro-superman.html</h3>
+          <intro-superman></intro-superman>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-superman"&gt;
+  &lt;template&gt;
+    &lt;p&gt;
+      &lt;span class="title"&gt;Superman&lt;/span&gt;
+    &lt;/p&gt;
+    &lt;div class="superman"&gt;
+      &lt;p&gt;
+        &lt;span class="suit"&gt;Traje&lt;/span&gt;
+        &lt;span class="cape"&gt;Capa&lt;/span&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;button on-click="changeToNormal"&gt;Cambiar a normal&lt;/button&gt;
+    &lt;button on-click="changeToDark"&gt;Cambiar a oscuro&lt;/button&gt;
+  &lt;/template&gt;
+
+  &lt;style&gt;
+    :host {
+      --suit-color: blue;
+      --cape-color: red;
+    }
+
+    .superman {
+      color: white;
+    }
+
+    .superman span {
+      width: 100px;
+      height: 100px;
+      display: inline-block;
+      padding: 5px;
+    }
+
+    .suit {
+      background-color: var(--suit-color);
+    }
+
+    .cape {
+      background-color: var(--cape-color);
+    }
+
+    .title {
+      background-color: yellow;
+      color: red;
+      border: 2px solid blue;
+      padding: 5px;
+    }
+  &lt;/style&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-superman",
+      changeColors: function (suit, cape) {
+        this.customStyle['--suit-color'] = suit;
+        this.customStyle['--cape-color'] = cape;
+        Polymer.updateStyles();
+      },
+      changeToDark: function () {
+        this.changeColors('black', 'gray');
+      },
+      changeToNormal: function () {
+        this.changeColors('blue', 'red');
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+
+          <h2>Mixins</h2>
+          <p>Con estilos dentro de un Polymer element es posible crear mixins como en SASS/LESS.</p>
+          <pre class="prettyprint">
+          :host {
+            --mixin-green-arrow: {
+                color: white;
+                background-color: green;
+                font-size: 20px;
+                padding: 5px;
+              };
+          }
+          .title {
+            @apply(--mixin-green-arrow);
+          }
+          </pre>
+          <h3>intro-green-arrow.html</h3>
+          <intro-green-arrow></intro-green-arrow>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-green-arrow"&gt;
+  &lt;template&gt;
+    &lt;p class="title"&gt;
+      La indentidad secreta de Flecha verde es: Oliver Queen
+    &lt;/p&gt;
+
+  &lt;/template&gt;
+
+  &lt;style&gt;
+    :host {
+      --mixin-green-arrow: {
+          color: white;
+          background-color: green;
+          font-size: 20px;
+          padding: 5px;
+        };
+    }
+    .title {
+      @apply(--mixin-green-arrow);
+    }
+  &lt;/style&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-green-arrow"
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

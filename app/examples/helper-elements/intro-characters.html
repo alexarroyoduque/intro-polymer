@@ -1,0 +1,53 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-characters">
+  <template>
+    <table>
+      <thead>
+        <tr>
+          <th>Índice</span></th>
+          <th>Nombre</th>
+          <th>Tipo</th>
+        </tr>
+      </thead>
+      <tbody>
+      <template is="dom-repeat" items="{{characters}}">
+        <tr>
+          <td># <span>{{index}}</span></td>
+          <td>{{item.name}}</td>
+          <td>
+            <template is="dom-if" if="{{item.isEnemy}}">
+                <span>Enemigo</span>
+            </template>
+            <template is="dom-if" if="{{!item.isEnemy}}">
+                <span>Heroe</span>
+            </template>
+          </td>
+        </tr>
+      </template>
+      </tbody>
+    </table>
+  </template>
+
+  <script>
+    Polymer({
+      is: "intro-characters",
+      properties: {
+        characters: {
+          type: Array,
+          value: function() {
+            return [{name: 'Batman', isEnemy: false},
+            {name: 'Jocker', isEnemy: true},
+            {name: 'Superman', isEnemy: false},
+            {name: 'Green arrow', isEnemy: false},
+            {name: 'Deathstroke', isEnemy: true},
+            {name: 'Zod', isEnemy: true},
+            {name: 'Green Lantern', isEnemy: false},
+            {name: 'Siniestro', isEnemy: true}];
+          }
+        }
+      }
+    });
+  </script>
+</dom-module>

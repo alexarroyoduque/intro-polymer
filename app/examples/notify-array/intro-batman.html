@@ -1,0 +1,32 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-batman">
+  <template>
+    <p><b>Batman</b></p>
+    <p>Batarangs disponibles: <span>{{batarangs.length}}</span></p>
+    <button on-click="buyBatarang">Comprar batarang</button>
+    <p>Estado del primer Batarang: <span>{{batarangs.0.status}}</span></p>
+    <button on-click="useFirstBatarang">Lanzar el primer batarang</button>
+  </template>
+
+  <script>
+    Polymer({
+      is: "intro-batman",
+      properties: {
+        batarangs: {
+          type: Array,
+          value: function() {
+            return [{status: 'ok'}];
+          }
+        }
+      },
+      buyBatarang: function () {
+        this.push('batarangs', {status: 'ok'});
+      },
+      useFirstBatarang: function () {
+        this.notifyPath('batarangs.' + 0 + '.status', 'broken');
+      }
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,33 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-green-arrow">
+  <template>
+    <p class="title">
+      La indentidad secreta de Flecha verde es: Oliver Queen
+    </p>
+
+  </template>
+
+  <style>
+    :host {
+      --mixin-green-arrow: {
+          color: white;
+          background-color: green;
+          font-size: 20px;
+          padding: 5px;
+        };
+    }
+    .title {
+      @apply(--mixin-green-arrow);
+    }
+  </style>
+
+  <script>
+    Polymer({
+      is: "intro-green-arrow"
+    });
+  </script>
+
+</dom-module>
+

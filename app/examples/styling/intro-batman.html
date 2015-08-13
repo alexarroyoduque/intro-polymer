@@ -1,0 +1,38 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-batman">
+
+  <template>
+    <p class="title">La indentidad secreta de Batman es:&nbsp;
+      <template is="dom-bind">
+        <span class="secret">Bruce Wayne</span>
+      </template>
+    </p>
+  </template>
+
+  <style>
+    :host {
+      color: white;
+    }
+
+    .title {
+      background-color: black;
+      font-size: 20px;
+      padding: 5px;
+    }
+
+    :host::content .secret {
+      color: yellow;
+    }
+
+  </style>
+
+  <script>
+    Polymer({
+      is: "intro-batman"
+    });
+  </script>
+
+</dom-module>
+

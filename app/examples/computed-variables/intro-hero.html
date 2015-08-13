@@ -1,0 +1,62 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-hero">
+  <template>
+    <p class$="{{suit}}">El hombre del mañana:&nbsp;
+      <b>{{hero}}</b>
+    </p>
+    <button on-click="changeClothes">Cambiarse de ropa</button>
+  </template>
+
+  <style>
+    .superman {
+      background-color: yellow;
+      color: red;
+      border: 2px solid blue;
+      padding: 5px;
+    }
+  </style>
+  <script>
+    Polymer({
+      is: "intro-hero",
+      properties: {
+        hero: {
+          type: String,
+          computed: 'computeFullName(name, lastname)'
+        },
+        name: {
+          type: String,
+          value: 'Clark'
+        },
+        lastname: {
+          type: String,
+          value: 'Kent'
+        },
+        suit: {
+          type: String
+        }
+      },
+      computeFullName: function(name, lastname) {
+        return name + ' ' + lastname;
+      },
+      changeToSuperMan: function () {
+        this.name = 'Super Man';
+        this.lastname = '';
+        this.suit = 'superman';
+      },
+      changeToClark: function () {
+        this.name = 'Clark';
+        this.lastname = 'Kent';
+        this.suit = '';
+      },
+      changeClothes: function () {
+        if (this.suit === 'superman') {
+          this.changeToClark();
+        } else {
+          this.changeToSuperMan();
+        }
+      }
+    });
+  </script>
+</dom-module>

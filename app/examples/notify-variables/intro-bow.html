@@ -1,0 +1,35 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-bow">
+
+  <template>
+    <p class="title">Arco</p>
+    <p>Flechas disparadas por el arco: <span>{{arrows}}</span></p>
+    <button on-click="shoot">Disparar desde el arco</button>
+  </template>
+  <style>
+    .title {
+      color: black;
+      border: 2px solid green;
+      padding: 5px;
+    }
+  </style>
+  <script>
+    Polymer({
+      is: "intro-bow",
+      properties: {
+        arrows: {
+          type: Number,
+          value: 0,
+          notify: true
+        }
+      },
+      shoot: function () {
+        this.arrows++;
+      }
+    });
+  </script>
+
+</dom-module>
+

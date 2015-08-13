@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-batman.html">
+    <link rel="import" href="./intro-batmovil.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Comunicar elementos</h1></header>
+        <div class="doc">
+          <p>Al crear un elemento de Polymer creamos funciones y variables. Buscando ese elemento el DOM es posible ejecutar sus métodos.</p>
+          <h2>Ejemplo</h2>
+          <p>En este ejemplo elementos no están anidados pero también funcionaría si lo estuvieran.</p>
+          <intro-batman></intro-batman>
+          <intro-batmovil></intro-batmovil>
+          <h3>intro-batmovil.html</h3>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-batmovil"&gt;
+
+  &lt;template&gt;
+    &lt;p&gt;&lt;span class="title"&gt;Batmovil&lt;/span&gt;&lt;/p&gt;
+    &lt;p&gt;Misiles disparados: &lt;span&gt;{{shoots}}&lt;/span&gt;&lt;/p&gt;
+  &lt;/template&gt;
+
+  &lt;style&gt;
+    .title {
+      background-color: black;
+      color: white;
+      border: 2px solid gray;
+      padding: 5px;
+      border-radius: 50%;
+    }
+  &lt;/style&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-batmovil",
+      properties: {
+        shoots: {
+          type: Number,
+          value: 0
+        }
+      },
+      shoot: function () {
+          this.shoots++;
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+
+          </pre>
+          <h3>intro-batman.html</h3>
+          <pre class="prettyprint">
+&lt;dom-module id="intro-batman"&gt;
+  &lt;template&gt;
+    &lt;p&gt;&lt;span class="title"&gt;Batman&lt;/span&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;button on-click="sendSignal"&gt;Disparar misil del batmovil&lt;/button&gt;&lt;/p&gt;
+  &lt;/template&gt;
+
+  &lt;style&gt;
+    .title {
+      background-color: black;
+      color: white;
+      border: 2px solid gray;
+      padding: 5px;
+    }
+  &lt;/style&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-batman",
+      ready: function () {
+        document.addEventListener('WebComponentsReady', (function() {
+            this.introBatmovil = document.querySelector('intro-batmovil');
+        }).bind(this));
+      },
+      sendSignal: function () {
+        this.introBatmovil.shoot();
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

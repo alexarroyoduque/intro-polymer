@@ -1,0 +1,46 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-batman">
+
+  <template>
+    <p><span class="title">Batman</span></p>
+    <p><button on-click="sendSOS">Enviar SOS desde Batman</button></p>
+    <p>{{log}}</p>
+  </template>
+
+  <style>
+    .title {
+      background-color: black;
+      color: white;
+      border: 2px solid gray;
+      padding: 5px;
+    }
+  </style>
+
+  <script>
+    Polymer({
+      is: "intro-batman",
+      properties: {
+        log: {
+          type: String,
+          value: ''
+        }
+      },
+      listeners: {
+        'SOS': 'handleSOS'
+      },
+      sendSOS: function () {
+        console.log('Batman envia un SOS');
+        this.log += '>Batman envia un SOS';
+        this.fire('SOS', 'From Batman');
+      },
+      handleSOS: function (e) {
+        console.log('Batman recibe un SOS: ' + e.detail);
+        this.log += '>Batman recibe un SOS: ' + e.detail;
+      }
+    });
+  </script>
+
+</dom-module>
+

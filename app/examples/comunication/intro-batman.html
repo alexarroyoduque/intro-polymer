@@ -1,0 +1,34 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-batman">
+
+  <template>
+    <p><span class="title">Batman</span></p>
+    <p><button on-click="sendSignal">Disparar misil del batmovil</button></p>
+  </template>
+
+  <style>
+    .title {
+      background-color: black;
+      color: white;
+      border: 2px solid gray;
+      padding: 5px;
+    }
+  </style>
+
+  <script>
+    Polymer({
+      is: "intro-batman",
+      ready: function () {
+        document.addEventListener('WebComponentsReady', (function() {
+            this.introBatmovil = document.querySelector('intro-batmovil');
+        }).bind(this));
+      },
+      sendSignal: function () {
+        this.introBatmovil.shoot();
+      }
+    });
+  </script>
+
+</dom-module>

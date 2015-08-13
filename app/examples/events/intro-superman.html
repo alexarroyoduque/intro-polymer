@@ -1,0 +1,50 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-superman">
+
+  <template>
+    <p><span class="title">Superman</span></p>
+    <p>Vueltas al mundo: <span>{{laps}}</span></p>
+    <button on-click="turnTheWorld">Dar vuelta al mundo</button>
+    <p>{{log}}</p>
+  </template>
+
+  <style>
+    .title {
+      background-color: yellow;
+      color: red;
+      border: 2px solid blue;
+      padding: 5px;
+    }
+  </style>
+
+  <script>
+    Polymer({
+      is: "intro-superman",
+      properties: {
+        laps: {
+          type: Number,
+          value: 0,
+          notify: true
+        },
+        log: {
+          type: String,
+          value: ''
+        }
+      },
+      listeners: {
+        'laps-changed': 'handleEvent'
+      },
+      turnTheWorld: function () {
+        this.laps++;
+      },
+      handleEvent: function () {
+        console.log('Superman ha dado una vuelta al mundo');
+        this.log += '>Superman ha dado una vuelta al mundo';
+      }
+    });
+  </script>
+
+</dom-module>
+

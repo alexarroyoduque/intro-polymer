@@ -1,0 +1,36 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-hero">
+
+  <template>
+    <p>El hombre del mañana: <b>{{name}}</b> <b>{{lastname}}</b></p>
+    <p>Vueltas al mundo: <span>{{laps}}</span></p>
+    <button on-click="turnTheWorld">Dar vuelta al mundo</button>
+  </template>
+
+  <script>
+    Polymer({
+      is: "intro-hero",
+      properties: {
+        name: {
+          type: String,
+          value: 'Clark'
+        },
+        lastname: {
+          type: String,
+          value: 'Kent'
+        },
+        laps: {
+          type: Number,
+          value: 0
+        }
+      },
+      turnTheWorld: function () {
+        this.laps++;
+      }
+    });
+  </script>
+
+</dom-module>
+

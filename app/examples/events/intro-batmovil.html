@@ -1,0 +1,50 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="./intro-batman.html">
+
+<dom-module id="intro-batmovil">
+
+  <template>
+    <p><span class="title">Batmovil</span></p>
+    <p><button on-click="sendSOS">Enviar SOS desde Batmovil</button></p>
+    <p>{{log}}</p>
+    <intro-batman></intro-batman>
+  </template>
+
+  <style>
+    .title {
+      background-color: black;
+      color: white;
+      border: 2px solid gray;
+      padding: 5px;
+      border-radius: 50%;
+    }
+  </style>
+
+  <script>
+    Polymer({
+      is: "intro-batmovil",
+      properties: {
+        log: {
+          type: String,
+          value: ''
+        }
+      },
+      listeners: {
+        'SOS': 'handleSOS'
+      },
+      sendSOS: function () {
+        console.log('Batmovil envia un SOS');
+        this.log += '>Batmovil envia un SOS';
+        this.fire('SOS', 'From Batmovil');
+      },
+      handleSOS: function (e) {
+        console.log('Batmovil recibe un SOS: ' + e.detail);
+        this.log += '>Batmovil recibe un SOS: ' + e.detail;
+      }
+    });
+  </script>
+
+</dom-module>
+

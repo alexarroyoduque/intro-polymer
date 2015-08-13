@@ -1,0 +1,50 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="intro-hero">
+
+  <template>
+    <p class$="{{flyEffect}}">El hombre del mañana: <b>Clark Kent</b></p>
+    <p>Vueltas al mundo: <span>{{laps}}</span></p>
+    <button on-click="turnTheWorld">Dar vuelta al mundo</button>
+  </template>
+
+  <style>
+    .fly {
+      animation-name: fly-animation;
+      animation-timing-function: ease;
+      animation-duration: .5s;
+    }
+
+    @keyframes fly-animation {
+      0% {transform: rotate(0);}
+      100% {transform: rotate(1turn);}
+    }
+
+  </style>
+  <script>
+    Polymer({
+      is: "intro-hero",
+      properties: {
+        laps: {
+          type: Number,
+          value: 0,
+          observer: 'fly'
+        },
+        flyEffect: String
+      },
+      turnTheWorld: function () {
+        this.laps++;
+      },
+      fly: function () {
+        this.flyEffect = '';
+        this.flyEffect = 'fly';
+        this.async((function () {
+            this.flyEffect = '';
+        }).bind(this), 500);
+      }
+    });
+  </script>
+
+</dom-module>
+

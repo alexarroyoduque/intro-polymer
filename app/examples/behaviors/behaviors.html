@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-flash.html">
+    <link rel="import" href="./intro-green-lantern.html">
+    <link rel="import" href="./intro-green-arrow.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Comportamientos</h1></header>
+        <div class="doc">
+          <p>Polymer permite programar la lógica de un componente una vez y que otros elementos puedan usarla. De este modo se pueden heredar comportamientos comunes fácilmente evitando duplicidades de código. </p>
+          <p>No obstante si un componente que hereda un comportamiento necesita adaptar alguna de las funcionalidades proporcionadas es posible sobreescribirlas desde el propio componente.</p>
+          <h2>Ejemplo</h2>
+          <p>Todos los heroes pueden salvar el mundo y tienen un color favorito. Flash a diferencia de los otros heroes ha sobreescrito su comportamiento base para elegir otro color diferente.</p>
+          <intro-green-arrow></intro-green-arrow>
+          <intro-green-lantern></intro-green-lantern>
+          <intro-flash></intro-flash>
+          <h3>intro-hero-behavior.html</h3>
+          <pre class="prettyprint">
+  &lt;script&gt;
+  HeroBehavior = {
+      properties: {
+          favouriteColor: String,
+          times: {
+              type: Number,
+              value: 0
+          }
+      },
+      saveTheWorld: function () {
+          this.times++;
+      },
+      chooseFavouriteColor: function () {
+          this.favouriteColor = 'green';
+      }
+  };
+  &lt;/script&gt;
+          </pre>
+          <h3>intro-flash.html</h3>
+          <pre class="prettyprint">
+&lt;link rel="import"
+    href="../../bower_components/polymer/polymer.html"&gt;
+
+&lt;link rel="import" href="intro-hero-behavior.html"&gt;
+
+&lt;dom-module id="intro-flash"&gt;
+
+  &lt;template&gt;
+    &lt;p&gt;&lt;b&gt;Flash&lt;/b&gt; ha salvado el mundo: &lt;span&gt;{{times}}&lt;/span&gt; veces&lt;/p&gt;
+    &lt;p&gt;&lt;button on-click="saveTheWorld"&gt;Salva el mundo&lt;/button&gt;&lt;/p&gt;
+    &lt;p&gt;
+      &lt;button on-click="chooseFavouriteColor"&gt;Dime tu color favorito&lt;/button&gt;
+      &lt;span&gt;{{favouriteColor}}&lt;/span&gt;
+    &lt;/p&gt;
+  &lt;/template&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-flash",
+      behaviors: [HeroBehavior],
+      chooseFavouriteColor: function () {
+        this.favouriteColor = 'red';
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+          <h3>intro-green-arrow.html</h3>
+          <pre class="prettyprint">
+&lt;link rel="import"
+    href="../../bower_components/polymer/polymer.html"&gt;
+
+&lt;link rel="import" href="intro-hero-behavior.html"&gt;
+
+&lt;dom-module id="intro-green-arrow"&gt;
+
+  &lt;template&gt;
+    &lt;p&gt;&lt;b&gt;Flecha verde&lt;/b&gt; ha salvado el mundo: &lt;span&gt;{{times}}&lt;/span&gt; veces&lt;/p&gt;
+    &lt;p&gt;&lt;button on-click="saveTheWorld"&gt;Salva el mundo&lt;/button&gt;&lt;/p&gt;
+    &lt;p&gt;
+      &lt;button on-click="chooseFavouriteColor"&gt;Dime tu color favorito&lt;/button&gt;
+      &lt;span&gt;{{favouriteColor}}&lt;/span&gt;
+    &lt;/p&gt;
+  &lt;/template&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-green-arrow",
+      behaviors: [HeroBehavior]
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+          <h3>intro-green-lantern.html</h3>
+          <pre class="prettyprint">
+&lt;link rel="import"
+    href="../../bower_components/polymer/polymer.html"&gt;
+
+&lt;link rel="import" href="intro-hero-behavior.html"&gt;
+
+&lt;dom-module id="intro-green-lantern"&gt;
+
+  &lt;template&gt;
+    &lt;p&gt;&lt;b&gt;Linterna verde&lt;/b&gt; ha salvado el mundo: &lt;span&gt;{{times}}&lt;/span&gt; veces&lt;/p&gt;
+    &lt;p&gt;&lt;button on-click="saveTheWorld"&gt;Salva el mundo&lt;/button&gt;&lt;/p&gt;
+    &lt;p&gt;
+      &lt;button on-click="chooseFavouriteColor"&gt;Dime tu color favorito&lt;/button&gt;
+      &lt;span&gt;{{favouriteColor}}&lt;/span&gt;
+    &lt;/p&gt;
+  &lt;/template&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: "intro-green-lantern",
+      behaviors: [HeroBehavior]
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+          </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,37 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+<link rel="import"
+    href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="intro-ajax">
+
+  <template>
+    <iron-ajax
+      auto
+      handle-as="json"
+      url="heroes.json"
+      on-response="handleResponse"
+      ></iron-ajax>
+    <p>{{heroes.0.name}}</p>
+
+  </template>
+
+  <style>
+    span {
+        color: red;
+        background-color: yellow;
+        padding: 5px;
+    }
+  </style>
+
+  <script>
+    Polymer({
+      is: "intro-ajax",
+      handleResponse: function (event, detail) {
+        this.heroes = detail.response;
+      }
+    });
+  </script>
+
+</dom-module>
+
