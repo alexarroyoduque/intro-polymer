@@ -17,10 +17,11 @@
             <li><a href="../../examples/events/events.html">Eventos</a></li>
             <li><a href="../../examples/behaviors/behaviors.html">Comportamientos</a></li>
             <li><a href="../../examples/comunication/comunication.html">Comunicar elementos</a></li>
-            <li><a href="../../examples/catalog-button/catalog-button.html">Catálogo Polymer: botón</a></li>
-            <li><a href="../../examples/catalog-iron-ajax/catalog-iron-ajax.html">Catálogo Polymer: iron-ajax</a></li>
-            <li><a href="../../examples/catalog-neon-animation/catalog-neon-animation.html">Catálogo Polymer: neon-animation</a></li>
-            <li><a href="../../examples/catalog-iron-icons/catalog-iron-icons.html">Catálogo Polymer: iron-icons</a></li>
+            <li class="catalog"><a href="../../examples/catalog-button/catalog-button.html">Catálogo: botón</a></li>
+            <li class="catalog"><a href="../../examples/catalog-iron-ajax/catalog-iron-ajax.html">Catálogo: iron-ajax</a></li>
+            <li class="catalog"><a href="../../examples/catalog-iron-icons/catalog-iron-icons.html">Catálogo: iron-icons</a></li>
+            <li class="catalog"><a href="../../examples/catalog-iron-iconset-svg/catalog-iron-iconset-svg.html">Catálogo: iron-iconset-svg</a></li>
+            <li class="catalog"><a href="../../examples/catalog-neon-animation/catalog-neon-animation.html">Catálogo: neon-animation</a></li>
           </ul>
         </div>
 
@@ -42,8 +43,16 @@
           padding-left: 15px;
         }
 
+        li.catalog {
+          background-color: #009688;
+        }
+
         li:not(:last-child) {
           border-bottom: 1px solid #4FC3F7;
+        }
+
+        li.catalog:not(:last-child) {
+          border-bottom: 1px solid #4DB6AC;
         }
 
         a {
@@ -56,6 +65,10 @@
 
         li:hover {
           background-color: #29B6F6;
+        }
+
+        li.catalog:hover {
+          background-color: #26A69A;
         }
 
         a:hover {
