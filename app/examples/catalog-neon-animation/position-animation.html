@@ -1,0 +1,25 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<script>
+
+  Polymer({
+
+    is: 'position-animation',
+
+    behaviors: [
+      Polymer.NeonAnimationBehavior
+    ],
+
+    configure: function(config) {
+      var node = config.node;
+      this._effect = new KeyframeEffect(node, [
+        {'left': '-15px', 'top': '80px'},
+        {'left': '-8px', 'top': '10px'},
+        {'left': '5px', 'top': '-10px'},
+        {'left': '0px', 'top': '0px'}
+      ], this.timingFromConfig(config));
+      return this._effect;
+    }
+
+  });
+
+</script>

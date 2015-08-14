@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Alejandro Arroyo Duque">
+    <title>intro</title>
+    <meta name="keywords" content="polymer, Alejandro, Arroyo, Duque, intro-polymer, intro, JavaScript">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="images/favicon.png" sizes="128x128" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=html"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./intro-batsignal.html">
+    <link rel="import" href="../../elements/intro-menu/intro-menu.html">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="menu-container">
+        <intro-menu></intro-menu>
+      </div>
+      <div class="content">
+        <header><h1>Catálogo: neon-animation</h1></header>
+        <div class="doc">
+          <p>Polymer proporciona una colección de elementos en su <a href="https://elements.polymer-project.org/">catálogo</a>.</p>
+          <h2>neon-animation</h2>
+          <p>Para usar las <a href="https://elements.polymer-project.org/elements/neon-animation?active=fade-in-animationn">animaciones neon</a> del catálogo de elementos Polymer es necesario instalar las dependencias necesarias e importarlas al proyecto.</p>
+          <code>bower install --save PolymerElements/neon-animation</code>
+          <p>Las animaciones de neon-animation trabajan con <a href="https://github.com/w3c/web-animations">web-animations</a>. Una API que combina javascript y CSS para ejecutar las animaciones de CSS desde el javascript.</p>
+          <p>Polymer incluye dos comportamientos clave en su elemento neon-animation:</p>
+          <dl>
+            <dt>NeonAnimationBehavior</dt>
+            <dd>Sirve para crear animaciones.</dd>
+            <dt>NeonAnimationRunnerBehavior</dt>
+            <dd>Sirve pare ejecutar las las animaciones.</dd>
+          </dl>
+          <p>Para más información ver el video sobre <a href="https://www.youtube.com/watch?v=Lwvi1u4XXzc&list=PLOU2XLYxmsII5c3Mgw6fNYCzaWrsM3sMN&index=1">neon-animation</a>.</p>
+          <h3>Ejemplo</h3>
+
+          <intro-batsignal></intro-batsignal>
+
+          <h4>intro-batsignal.html</h4>
+          <p>Se están importando las animaciones <b>fade-in-animation</b> y <b>fade-out-animation</b> que trae neon-animations.</p>
+          <p>También se está importando el comportamiento <b>neon-animation-runner-behavior</b> para que el componente pueda ejecutar animaciones.</p>
+          <p>En el componente <b>intro-batsignal</b> se está creando la propiedad <code>animationConfig</code> donde se configuran las animaciones. De este modo el componente configura dos animaciones <code>entry</code> y <code>exit</code>; siendo <code>entry</code> una combinación de dos animaciones, una de Polymer y otra personalizada.</p>
+
+          <p>En el ejemplo se puede ver la ejecución de una animación <code>this.playAnimation('entry')</code>, donde <code>entry</code> es una animación configurada.</p>
+          <p>También se ha agregado un listener para saber cuadno ha finalizado una animación con el evento <code>neon-animation-finish</code>.</p>
+          <p>En las funciones <code>show</code> y <code>hide</code> se modifica el estilo del elemento donde se aplica la animación para conservar los cambios al final ya que las animaciones <b>fade-in-animation</b> y <b>fade-out-animation</b> no lo hacen.</p>
+          <pre class="prettyprint">
+
+&lt;link rel="import"
+    href="../../bower_components/polymer/polymer.html"&gt;
+
+&lt;link rel="import"
+    href="../../bower_components/neon-animation/animations/fade-in-animation.html"&gt;
+&lt;link rel="import"
+    href="../../bower_components/neon-animation/animations/fade-out-animation.html"&gt;
+&lt;link rel="import"
+    href="./position-animation.html"&gt;
+&lt;link rel="import"
+    href="../../bower_components/neon-animation/neon-animation-runner-behavior.html"&gt;
+
+&lt;dom-module id="intro-batsignal"&gt;
+
+  &lt;template&gt;
+    &lt;p&gt;
+      &lt;button on-click="show"&gt;Mostrar batseñal&lt;/button&gt;
+      &lt;button on-click="hide"&gt;Ocultar batseñal&lt;/button&gt;
+    &lt;/p&gt;
+    &lt;div class="sky"&gt;
+      &lt;div class="batsignal"&gt;
+        &lt;span class="text"&gt;Batseñal&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/template&gt;
+
+  &lt;style&gt;
+    .sky {
+      background-color: black;
+      height: 120px;
+      padding: 10px;
+    }
+
+    .batsignal {
+      position: relative;
+      border-radius: 50%;
+      background-color: yellow;
+      padding: 5px;
+      height: 100px;
+      width: 100px;
+      display: none;
+    }
+    .text {
+      font-weight: bold;
+      top: 40%;
+      left: 22%;
+      position: absolute;
+    }
+  &lt;/style&gt;
+
+  &lt;script&gt;
+    Polymer({
+      is: 'intro-batsignal',
+      behaviors: [Polymer.NeonAnimationRunnerBehavior],
+      properties: {
+        showing: {
+          type: Boolean
+        },
+        animationConfig: {
+          value: function() {
+            return {
+              'entry': [{
+                  name: 'fade-in-animation',
+                  node: this.$$('.batsignal'),
+                  timing: {duration: 3000}
+                },{
+                  name: 'position-animation',
+                  node: this.$$('.batsignal'),
+                  timing: {duration: 4000}
+              }],
+              'exit': {
+                name: 'fade-out-animation',
+                node: this.$$('.batsignal'),
+                timing: {delay: 100, duration: 1000}
+              }
+            };
+          }
+        }
+      },
+      listeners: {
+        'neon-animation-finish': '_onNeonAnimationFinish'
+      },
+      show: function() {
+        this.showing = true;
+        this.$$('.batsignal').style.display = 'inline-block';
+        this.cancelAnimation();
+        this.playAnimation('entry');
+      },
+      hide: function() {
+        this.showing = false;
+        this.cancelAnimation();
+        this.playAnimation('exit');
+      },
+      _onNeonAnimationFinish: function() {
+        if (!this.showing) {
+          this.$$('.batsignal').style.display = 'none';
+        }
+      }
+    });
+  &lt;/script&gt;
+
+&lt;/dom-module&gt;
+
+          </pre>
+          <h4>position-animation.html</h4>
+          <p>Esta es una animación personalizada creada a partir de una copia de <b>fade-in-animation</b>.</p>
+          <pre class="prettyprint">
+&lt;script&gt;
+
+  Polymer({
+
+    is: 'position-animation',
+
+    behaviors: [
+      Polymer.NeonAnimationBehavior
+    ],
+
+    configure: function(config) {
+      var node = config.node;
+      this._effect = new KeyframeEffect(node, [
+        {'left': '-20px', 'top': '30px'},
+        {'left': '-10px', 'top': '10px'},
+        {'left': '10px', 'top': '-10px'},
+        {'left': '0px', 'top': '0px'}
+      ], this.timingFromConfig(config));
+      return this._effect;
+    }
+
+  });
+
+&lt;/script&gt;
+          </pre>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

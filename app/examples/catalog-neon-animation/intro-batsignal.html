@@ -1,0 +1,102 @@
+<link rel="import"
+    href="../../bower_components/polymer/polymer.html">
+
+<link rel="import"
+    href="../../bower_components/neon-animation/animations/fade-in-animation.html">
+<link rel="import"
+    href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import"
+    href="./position-animation.html">
+<link rel="import"
+    href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
+
+<dom-module id="intro-batsignal">
+
+  <template>
+    <p>
+      <button on-click="show">Mostrar batseñal</button>
+      <button on-click="hide">Ocultar batseñal</button>
+    </p>
+    <div class="sky">
+      <div class="batsignal">
+        <span class="text">Batseñal</span>
+      </div>
+    </div>
+  </template>
+
+  <style>
+    .sky {
+      background-color: black;
+      height: 120px;
+      padding: 10px;
+    }
+    .batsignal {
+      position: relative;
+      border-radius: 50%;
+      background-color: yellow;
+      padding: 5px;
+      height: 100px;
+      width: 100px;
+      display: none;
+    }
+    .text {
+      font-weight: bold;
+      top: 40%;
+      left: 22%;
+      position: absolute;
+    }
+  </style>
+
+  <script>
+    Polymer({
+      is: 'intro-batsignal',
+      behaviors: [Polymer.NeonAnimationRunnerBehavior],
+      properties: {
+        showing: {
+          type: Boolean
+        },
+        animationConfig: {
+          value: function() {
+            return {
+              'entry': [{
+                  name: 'fade-in-animation',
+                  node: this.$$('.batsignal'),
+                  timing: {duration: 3000}
+                },{
+                  name: 'position-animation',
+                  node: this.$$('.batsignal'),
+                  timing: {duration: 4000}
+              }],
+              'exit': {
+                name: 'fade-out-animation',
+                node: this.$$('.batsignal'),
+                timing: {delay: 100, duration: 1000}
+              }
+            };
+          }
+        }
+      },
+      listeners: {
+        'neon-animation-finish': '_onNeonAnimationFinish'
+      },
+      show: function() {
+        this.showing = true;
+        this.$$('.batsignal').style.display = 'inline-block';
+        this.cancelAnimation();
+        this.playAnimation('entry');
+      },
+      hide: function() {
+        this.showing = false;
+        this.cancelAnimation();
+        this.playAnimation('exit');
+      },
+      _onNeonAnimationFinish: function() {
+        if (!this.showing) {
+          this.$$('.batsignal').style.display = 'none';
+        }
+      }
+    });
+  </script>
+
+</dom-module>
+
